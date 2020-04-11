@@ -8,10 +8,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
 
-        // Game variables
         String[] enemies = {"グレムリン", "スケルトン", "ウォーリアー", "ゴースト"};
-        int maxEnemyHealth = 75;
-        int enemyAttackDamage = 25;
 
         //Item
         int numHealthPotions = 3;
@@ -28,13 +25,14 @@ public class Main {
         while (running) {
             System.out.println("--------------------------------------------------");
 
-            int enemyHealth = rand.nextInt(maxEnemyHealth);
-            String enemy = enemies[rand.nextInt(enemies.length)];
-            System.out.println("\t# " + enemy + "が現れた! #\n");
+            int enemyNum = rand.nextInt(enemies.length);
+            Enemy enemy = new Enemy(50,25);
+            int enemyHealth = rand.nextInt(enemy.getEnemyAttackDamage());
+            System.out.println("\t# " + enemies[enemyNum] + "が現れた! #\n");
 
             while (enemyHealth > 0) {
                 System.out.println("\tあなたのHP: " + player.getHealth());
-                System.out.println("\t" + enemy + "のHP: " + enemyHealth);
+                System.out.println("\t" + enemies[enemyNum] + "のHP: " + enemyHealth);
                 System.out.println("\n\tどうしますか？");
                 System.out.println("\t1. 攻撃する");
                 System.out.println("\t2. ポーションを使う" + "(" + numHealthPotions + ")");
@@ -43,12 +41,12 @@ public class Main {
                 String input = in.nextLine();
                 if (input.equals("1")) {
                     int damageDealt = rand.nextInt(player.getAttackDamage());
-                    int damageTaken = rand.nextInt(enemyAttackDamage);
+                    int damageTaken = rand.nextInt(enemy.getEnemyAttackDamage());
 
                     enemyHealth -= damageDealt;
                     player.setHealth(player.getHealth() - damageTaken);
 
-                    System.out.println("\t> あなたは" + enemy + "に" + damageDealt + "のダメージをあたえた.");
+                    System.out.println("\t> あなたは" + enemies[enemyNum] + "に" + damageDealt + "のダメージをあたえた.");
                     System.out.println("\t> あなたは" + damageTaken + "のダメージを受けた");
 
                     if (player.getHealth() < 1) {
@@ -69,11 +67,11 @@ public class Main {
                 } else if (input.equals("3")) {
                     int runChance = rand.nextInt(2);
                     if (runChance == 0) {
-                        System.out.println("\t あなたは" + enemy + "から逃げました.");
+                        System.out.println("\t あなたは" + enemies[enemyNum] + "から逃げました.");
                         continue GAME;
                     } else {
                         System.out.println("\t 逃げるのに失敗しました!");
-                        int damageTaken = rand.nextInt(enemyAttackDamage);
+                        int damageTaken = rand.nextInt(enemy.getEnemyAttackDamage());
 
                         player.setHealth(player.getHealth() - damageTaken);
 
@@ -96,11 +94,11 @@ public class Main {
             }
 
             System.out.println("--------------------------------------------------");
-            System.out.println("# " + enemy + "を倒しました! #");
+            System.out.println("# " + enemies[enemyNum] + "を倒しました! #");
             System.out.println("# 残りHPは" + player.getHealth() + "です. #");
             if (rand.nextInt(100) > healthPotionDropChance) {
                 numHealthPotions++;
-                System.out.println("# " + enemy + "はポーションを落としました! #");
+                System.out.println("# " + enemies[enemyNum] + "はポーションを落としました! #");
                 System.out.println("# 現在の所持ポーションは" + numHealthPotions + "つ. #");
             }
             System.out.println("--------------------------------------------------");
@@ -122,6 +120,8 @@ public class Main {
                 break;
             }
         }
+
+
         System.out.println("######################");
         System.out.println("# THANKS FOR PLAYING #");
         System.out.println("######################");

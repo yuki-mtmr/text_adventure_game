@@ -8,12 +8,9 @@ public class Main {
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
 
-        //Item
-        int numHealthPotions = 3;
-        int healthPotionHealAmount = 30;
-        int healthPotionDropChance = 50;
-
         Player player = new Player(100,50);
+        Enemy enemy = new Enemy(50,25);
+        Item item = new Item("ポーション",3,30,50);
 
         boolean running = true;
 
@@ -24,7 +21,6 @@ public class Main {
             System.out.println("--------------------------------------------------");
 
             int enemyNum = rand.nextInt(Enemy.getEnemies().length);
-            Enemy enemy = new Enemy(50,25);
             int enemyHealth = rand.nextInt(enemy.getEnemyAttackDamage());
             System.out.println("\t# " + Enemy.getEnemies()[enemyNum] + "が現れた! #\n");
 
@@ -33,7 +29,7 @@ public class Main {
                 System.out.println("\t" + Enemy.getEnemies()[enemyNum] + "のHP: " + enemyHealth);
                 System.out.println("\n\tどうしますか？");
                 System.out.println("\t1. 攻撃する");
-                System.out.println("\t2. ポーションを使う" + "(" + numHealthPotions + ")");
+                System.out.println("\t2. " + item.getName() + "を使う" + "(" + item.getNumHealthPotions() + ")");
                 System.out.println("\t3. 逃げる!");
 
                 String input = in.nextLine();
@@ -52,14 +48,14 @@ public class Main {
                         break;
                     }
                 } else if (input.equals("2")) {
-                    if (numHealthPotions > 0) {
-                        player.setHealth(player.getHealth() + healthPotionHealAmount);
-                        numHealthPotions--;
-                        System.out.println("\t> ポーションを使いました.体力が" + healthPotionHealAmount + "回復しました."
+                    if (item.getNumHealthPotions() > 0) {
+                        player.setHealth(player.getHealth() + item.getHealthPotionHealAmount());
+                        item.setNumHealthPotions(item.getNumHealthPotions() -1);
+                        System.out.println("\t>"  + item.getName() + "を使いました.体力が" + item.getHealthPotionHealAmount() + "回復しました."
                                 + "\n\t>現在のHPは" + player.getHealth() + "です"
-                                + "残りのポーションは、あと" + numHealthPotions + "です.\n");
+                                + "残りの" + item.getName() + "は、あと" + item.getNumHealthPotions() + "です.\n");
                     } else {
-                        System.out.println("\n> もうポーションを一つも持っていません!");
+                        System.out.println("\n> もう" + item.getName() + "を一つも持っていません!");
                     }
 
                 } else if (input.equals("3")) {
@@ -94,10 +90,10 @@ public class Main {
             System.out.println("--------------------------------------------------");
             System.out.println("# " + Enemy.getEnemies()[enemyNum] + "を倒しました! #");
             System.out.println("# 残りHPは" + player.getHealth() + "です. #");
-            if (rand.nextInt(100) > healthPotionDropChance) {
-                numHealthPotions++;
-                System.out.println("# " + Enemy.getEnemies()[enemyNum] + "はポーションを落としました! #");
-                System.out.println("# 現在の所持ポーションは" + numHealthPotions + "つ. #");
+            if (rand.nextInt(100) > item.getHealthPotionDropChance()) {
+                item.setNumHealthPotions(item.getNumHealthPotions() + 1);
+                System.out.println("# " + Enemy.getEnemies()[enemyNum] + "は" + item.getName() + "を落としました! #");
+                System.out.println("# 現在の所持" + item.getName() +"は" + item.getNumHealthPotions() + "つ. #");
             }
             System.out.println("--------------------------------------------------");
             System.out.println("行動を選択してください.");

@@ -16,6 +16,7 @@ public class Main {
 
         System.out.println("ダンジョンへようこそ!");
 
+
         GAME:
         while (running) {
             System.out.println("--------------------------------------------------");

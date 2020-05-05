@@ -22,7 +22,7 @@ public class Main {
             System.out.println("--------------------------------------------------");
 
             int enemyNum = rand.nextInt(Enemy.getEnemies().length);
-            int enemyHealth = rand.nextInt(enemy.getEnemyAttackDamage());
+            int enemyHealth = rand.nextInt(enemy.getAttackDamage());
             System.out.println("\t# " + Enemy.getEnemies()[enemyNum] + "が現れた! #\n");
 
             while (enemyHealth > 0) {
@@ -36,7 +36,7 @@ public class Main {
                 String input = in.nextLine();
                 if (input.equals("1")) {
                     int damageDealt = rand.nextInt(player.getAttackDamage());
-                    int damageTaken = rand.nextInt(enemy.getEnemyAttackDamage());
+                    int damageTaken = rand.nextInt(enemy.getAttackDamage());
 
                     enemyHealth -= damageDealt;
                     player.setHealth(player.getHealth() - damageTaken);
@@ -66,7 +66,7 @@ public class Main {
                         continue GAME;
                     } else {
                         System.out.println("\t 逃げるのに失敗しました!");
-                        int damageTaken = rand.nextInt(enemy.getEnemyAttackDamage());
+                        int damageTaken = rand.nextInt(enemy.getAttackDamage());
 
                         player.setHealth(player.getHealth() - damageTaken);
 

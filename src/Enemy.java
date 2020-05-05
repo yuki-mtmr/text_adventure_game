@@ -1,12 +1,9 @@
-public class Enemy {
+public class Enemy extends Creature {
 
     private static String[] enemies = {"グレムリン", "スケルトン", "ウォーリアー", "ゴースト"};
-    private int maxEnemyHealth;
-    private int enemyAttackDamage;
 
-    Enemy(int maxEnemyHealth, int enemyAttackDamage) {
-        this.maxEnemyHealth = maxEnemyHealth;
-        this.enemyAttackDamage = enemyAttackDamage;
+    Enemy(int health, int attackDamage) {
+        super(health, attackDamage);
     }
 
     public static String[] getEnemies() {
@@ -16,21 +13,4 @@ public class Enemy {
     public static void setEnemies(String[] enemies) {
         Enemy.enemies = enemies;
     }
-
-    public int getMaxEnemyHealth() {
-        return maxEnemyHealth;
-    }
-
-    public void setMaxEnemyHealth(int maxEnemyHealth) {
-        this.maxEnemyHealth = maxEnemyHealth;
-    }
-
-    public int getEnemyAttackDamage() {
-        return enemyAttackDamage;
-    }
-
-    public void setEnemyAttackDamage(int enemyAttackDamage) {
-        this.enemyAttackDamage = enemyAttackDamage;
-    }
-
 }

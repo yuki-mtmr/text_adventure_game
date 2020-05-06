@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Enemy extends Creature {
 
     private static String[] enemies = {"グレムリン", "スケルトン", "ウォーリアー", "ゴースト"};

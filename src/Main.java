@@ -90,6 +90,14 @@ public class Main {
 
             System.out.println("--------------------------------------------------");
             System.out.println("# " + Enemy.getEnemies()[enemyNum] + "を倒しました! #");
+            System.out.println("# あなたは50の経験値を得ました #");
+            player.setExp(player.getExp() + 50);
+            if (player.getExp() % 100 == 0 && player.getExp() / 100 == player.getLv()) {
+                player.setLv(player.getLv() + 1);
+                System.out.println("# あなたはレベル" + player.getLv() + "になりました! #");
+                player.setAttackDamage(50);
+                player.setAttackDamage(player.getAttackDamage() * player.getLv());
+            }
             System.out.println("# 残りHPは" + player.getHealth() + "です. #");
             if (rand.nextInt(100) > item.getHealthPotionDropChance()) {
                 item.setNumHealthPotions(item.getNumHealthPotions() + 1);
